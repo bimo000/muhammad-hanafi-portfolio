@@ -316,6 +316,10 @@ html.ready .posters{opacity:1;transform:none}
   .about{padding:84px 0}
   .about h2{max-width:12ch;font-size:clamp(2.55rem,11vw,4.2rem)}
   .scrub{font-size:clamp(1.12rem,4.8vw,1.4rem)}
+  /* Mobile content must never depend on an IntersectionObserver animation. */
+  .tl-item{clip-path:none;opacity:1;transform:none}
+  .tl-item::before{background:var(--sun);border-color:var(--sun);transform:scale(1.08)}
+  .track .frame img{opacity:1;visibility:visible}
 }
 
 /* ============ TOOLS ============ */
@@ -684,6 +688,9 @@ footer b{color:var(--fg);font-family:var(--display);font-size:1.1rem}
 @media (max-width:899px),(max-height:719px){
   html:not(.deck-mode){scroll-snap-type:y proximity}
   html:not(.deck-mode) main>section{scroll-snap-align:start}
+  /* Final mobile fallback: content remains visible without reveal JavaScript. */
+  .journey .tl-item{clip-path:none;opacity:1;transform:none}
+  .journey .tl-item::before{background:var(--sun);border-color:var(--sun);transform:scale(1.08)}
   .deck-ui{right:50%;top:auto;bottom:calc(12px + env(safe-area-inset-bottom,0px));translate:50% 0;
     grid-template-columns:auto auto;padding:8px 10px;border-radius:99px;gap:10px}
   .deck-count{grid-template-columns:auto auto auto;gap:6px}
@@ -708,6 +715,7 @@ footer b{color:var(--fg);font-family:var(--display);font-size:1.1rem}
   .pre{display:none}
   .split .wi,.chi{transform:none!important}
   [data-r]{opacity:1!important;transform:none!important;clip-path:none!important}
+  .tl-item{opacity:1!important;transform:none!important;clip-path:none!important}
   .scrub .sw{opacity:1!important}
   .deck-ui{transition:none;opacity:1;transform:none}
 }
@@ -786,11 +794,11 @@ footer b{color:var(--fg);font-family:var(--display);font-size:1.1rem}
     </div>
     <div class="posters" id="posters">
       <figure class="poster p1" data-ripple>
-        <img data-src="/projects/eid-al-adha-campaign.jpg" alt="Eid al-Adha social-media campaign poster" draggable="false">
+        <img src="/projects/eid-al-adha-campaign.jpg" alt="Eid al-Adha social-media campaign poster" draggable="false">
         <figcaption><b>Eid al-Adha Campaign</b>Social Media Design</figcaption>
       </figure>
       <figure class="poster p2" data-ripple>
-        <img data-src="/projects/basketball-match-poster.jpg" alt="Basketball match event poster" draggable="false">
+        <img src="/projects/basketball-match-poster.jpg" alt="Basketball match event poster" draggable="false">
         <figcaption><b>Basketball Match</b>Event Poster Design</figcaption>
       </figure>
       <div class="badge" aria-hidden="true">
@@ -814,7 +822,7 @@ footer b{color:var(--fg);font-family:var(--display);font-size:1.1rem}
   <div class="wrap about-grid">
     <div class="photo" id="photo" data-cursor="View">
       <div class="photo-frame" data-r="clip">
-        <img data-src="/images/muhammad-hanafi.jpeg" alt="Muhammad Hanafi, Graphic Designer" id="photoImg">
+        <img src="/images/muhammad-hanafi.jpeg" alt="Muhammad Hanafi, Graphic Designer" id="photoImg">
         <div class="photo-tag"><div><b>Muhammad Hanafi</b><br><span>The designer</span></div><span>Available for freelance</span></div>
       </div>
       <div class="sticker">Open to<br>freelance</div>
@@ -839,12 +847,12 @@ footer b{color:var(--fg);font-family:var(--display);font-size:1.1rem}
   <div class="wrap">
     <div class="head"><h2 class="split" data-split>Tools behind the ideas.</h2><span class="count">6 tools</span></div>
     <div class="tool-grid" id="toolGrid">
-      <div class="tool" data-ripple><span class="n">01</span><div class="lg" data-init="Ps"><img data-src="/logos/photoshop.svg" alt="" onerror="this.remove()"></div><h3>Photoshop</h3></div>
-      <div class="tool" data-ripple><span class="n">02</span><div class="lg" data-init="Ai"><img data-src="/logos/illustrator.svg" alt="" onerror="this.remove()"></div><h3>Illustrator</h3></div>
-      <div class="tool" data-ripple><span class="n">03</span><div class="lg" data-init="Id"><img data-src="/logos/indesign.svg" alt="" onerror="this.remove()"></div><h3>InDesign</h3></div>
-      <div class="tool" data-ripple><span class="n">04</span><div class="lg" data-init="Fg"><img data-src="/logos/figma.svg" alt="" onerror="this.remove()"></div><h3>Figma</h3></div>
-      <div class="tool" data-ripple><span class="n">05</span><div class="lg" data-init="Cv"><img data-src="/logos/canva.svg" alt="" onerror="this.remove()"></div><h3>Canva</h3></div>
-      <div class="tool" data-ripple><span class="n">06</span><div class="lg" data-init="Pr"><img data-src="/logos/premiere.svg" alt="" onerror="this.remove()"></div><h3>Premiere Pro</h3></div>
+      <div class="tool" data-ripple><span class="n">01</span><div class="lg" data-init="Ps"><img src="/logos/photoshop.svg" alt="" onerror="this.remove()"></div><h3>Photoshop</h3></div>
+      <div class="tool" data-ripple><span class="n">02</span><div class="lg" data-init="Ai"><img src="/logos/illustrator.svg" alt="" onerror="this.remove()"></div><h3>Illustrator</h3></div>
+      <div class="tool" data-ripple><span class="n">03</span><div class="lg" data-init="Id"><img src="/logos/indesign.svg" alt="" onerror="this.remove()"></div><h3>InDesign</h3></div>
+      <div class="tool" data-ripple><span class="n">04</span><div class="lg" data-init="Fg"><img src="/logos/figma.svg" alt="" onerror="this.remove()"></div><h3>Figma</h3></div>
+      <div class="tool" data-ripple><span class="n">05</span><div class="lg" data-init="Cv"><img src="/logos/canva.svg" alt="" onerror="this.remove()"></div><h3>Canva</h3></div>
+      <div class="tool" data-ripple><span class="n">06</span><div class="lg" data-init="Pr"><img src="/logos/premiere.svg" alt="" onerror="this.remove()"></div><h3>Premiere Pro</h3></div>
     </div>
   </div>
 </section>
@@ -865,7 +873,24 @@ footer b{color:var(--fg);font-family:var(--display);font-size:1.1rem}
 <!-- WORK -->
 <section id="work" class="work" data-theme="ink" data-title="Selected Work" data-chapter="05">
   <div class="head"><h2 class="split" data-split>Selected work.</h2><span class="count">4 projects</span></div>
-  <div class="track" id="track" data-cursor="Drag"></div>
+  <div class="track" id="track" data-cursor="Drag">
+    <article class="card" data-i="0" data-cursor="View" data-ripple role="button" tabindex="0" aria-label="Open project: Personal Branding">
+      <div class="frame"><img src="/projects/personal-branding.webp" alt="Personal Branding" draggable="false"><div class="hov"><span>View project</span><i>→</i></div></div>
+      <div class="meta"><div><h3>Personal Branding</h3><p>Social Media Design</p></div><span class="idx">01 / 04</span></div>
+    </article>
+    <article class="card" data-i="1" data-cursor="View" data-ripple role="button" tabindex="0" aria-label="Open project: Travel Campaign">
+      <div class="frame"><img src="/projects/travel-campaign.webp" alt="Travel Campaign" draggable="false"><div class="hov"><span>View project</span><i>→</i></div></div>
+      <div class="meta"><div><h3>Travel Campaign</h3><p>Poster Design</p></div><span class="idx">02 / 04</span></div>
+    </article>
+    <article class="card" data-i="2" data-cursor="View" data-ripple role="button" tabindex="0" aria-label="Open project: Creative Campaign">
+      <div class="frame"><img src="/projects/creative-campaign.webp" alt="Creative Campaign" draggable="false"><div class="hov"><span>View project</span><i>→</i></div></div>
+      <div class="meta"><div><h3>Creative Campaign</h3><p>Social Media Design</p></div><span class="idx">03 / 04</span></div>
+    </article>
+    <article class="card" data-i="3" data-cursor="View" data-ripple role="button" tabindex="0" aria-label="Open project: Natural Beauty">
+      <div class="frame"><img src="/projects/natural-beauty.webp" alt="Natural Beauty" draggable="false"><div class="hov"><span>View project</span><i>→</i></div></div>
+      <div class="meta"><div><h3>Natural Beauty</h3><p>Branding Design</p></div><span class="idx">04 / 04</span></div>
+    </article>
+  </div>
   <div class="tbar"><i id="tbar"></i></div>
   <div class="work-hint">
     <span id="hintL">Swipe to explore</span>
@@ -937,6 +962,14 @@ footer b{color:var(--fg);font-family:var(--display);font-size:1.1rem}
 <script>
 /* File ini dijalankan dari folder public project, jadi seluruh aset memakai path lokal. */
 const ASSET = '';
+/* Escape hatch for older mobile browsers: never leave real content hidden. */
+const bootFallback = setTimeout(() => {
+  const doc = document.documentElement;
+  const loader = document.getElementById('pre');
+  doc.classList.add('ready');
+  if (loader) loader.style.display = 'none';
+  document.querySelectorAll('.split,[data-r],.tl-item').forEach(el => el.classList.add('in'));
+}, 4200);
 
 (() => {
 const $ = (s, r = document) => r.querySelector(s);
@@ -992,13 +1025,17 @@ function goScene(i) {
   chapters[i].scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
 }
 
-setDeckMode(); deckMQ.addEventListener('change', setDeckMode);
+setDeckMode();
+if (deckMQ.addEventListener) deckMQ.addEventListener('change', setDeckMode);
+else if (deckMQ.addListener) deckMQ.addListener(setDeckMode);
 deckPrev.addEventListener('click', () => goScene(activeScene - 1));
 deckNext.addEventListener('click', () => goScene(activeScene + 1));
-const sceneIO = new IntersectionObserver(entries => entries.forEach(e => {
-  if (e.isIntersecting) setActiveScene(chapters.indexOf(e.target));
-}), { threshold: 0, rootMargin: '-48% 0px -48% 0px' });
-chapters.forEach(section => sceneIO.observe(section));
+if ('IntersectionObserver' in window) {
+  const sceneIO = new IntersectionObserver(entries => entries.forEach(e => {
+    if (e.isIntersecting) setActiveScene(chapters.indexOf(e.target));
+  }), { threshold: 0, rootMargin: '-48% 0px -48% 0px' });
+  chapters.forEach(section => sceneIO.observe(section));
+}
 setActiveScene(activeScene);
 
 addEventListener('wheel', e => {
@@ -1033,12 +1070,13 @@ $$('[data-src]').forEach(i => i.src = ASSET + i.dataset.src);
 /* ============ PRELOADER ============ */
 const pre = $('#pre'), preNum = $('#preNum'), preBar = $('#preBar');
 function start() {
+  clearTimeout(bootFallback);
   pre.classList.add('done');
   setTimeout(() => root.classList.add('ready'), 500);
   setTimeout(() => $('.hero').classList.add('live'), 3200);
   setTimeout(() => { pre.style.display = 'none'; }, 1400);
 }
-if (reduce) { root.classList.add('ready'); $('.hero').classList.add('live'); }
+if (reduce) { clearTimeout(bootFallback); root.classList.add('ready'); $('.hero').classList.add('live'); }
 else {
   const t0 = performance.now(), dur = 1500;
   (function step(now) {
@@ -1070,15 +1108,21 @@ const sw = $$('.sw', scrub);
 sw.forEach((word, i) => word.style.setProperty('--si', i));
 
 /* ============ REVEAL ============ */
-const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }),
-  { threshold: .18, rootMargin: '0px 0px -6% 0px' });
-$$('.split,[data-r],.tl-item').forEach(el => io.observe(el));
+if ('IntersectionObserver' in window) {
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }),
+    { threshold: .12, rootMargin: '0px 0px -3% 0px' });
+  $$('.split,[data-r],.tl-item').forEach(el => io.observe(el));
+} else {
+  $$('.split,[data-r],.tl-item').forEach(el => el.classList.add('in'));
+}
 
 /* body theme by section */
-const themeIO = new IntersectionObserver(es => es.forEach(e => {
-  if (e.isIntersecting) document.body.dataset.theme = e.target.dataset.theme;
-}), { rootMargin: '-50% 0px -50% 0px' });
-$$('[data-theme]').forEach(s => { if (s !== document.body) themeIO.observe(s); });
+if ('IntersectionObserver' in window) {
+  const themeIO = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) document.body.dataset.theme = e.target.dataset.theme;
+  }), { rootMargin: '-50% 0px -50% 0px' });
+  $$('[data-theme]').forEach(s => { if (s !== document.body) themeIO.observe(s); });
+}
 
 /* ============ MENU ============ */
 const menu = $('#menu'), menuBtn = $('#menuBtn');
@@ -1158,11 +1202,7 @@ const WORKS = [
   { t: 'Natural Beauty', c: 'Branding Design', d: 'A clean and elegant identity for a natural-care product.', img: '/projects/natural-beauty.webp' }
 ];
 const track = $('#track'), tbar = $('#tbar');
-track.innerHTML = WORKS.map((w, i) => `
-  <article class="card" data-i="${i}" data-cursor="View" data-ripple role="button" tabindex="0" aria-label="Open project: ${w.t}">
-    <div class="frame"><img src="${ASSET + w.img}" alt="${w.t}" draggable="false"><div class="hov"><span>View project</span><i>→</i></div></div>
-    <div class="meta"><div><h3>${w.t}</h3><p>${w.c}</p></div><span class="idx">0${i + 1} / 04</span></div>
-  </article>`).join('');
+/* Cards are already in the HTML so mobile still shows the portfolio without JS. */
 const cards = $$('.card', track);
 const workPos = $('#workPos'), workPrev = $('#workPrev'), workNext = $('#workNext');
 let activeWork = 0;
@@ -1290,8 +1330,12 @@ document.addEventListener('pointerup', () => { dot.style.transform = ''; ring.st
 const letters = $$('.chi').map(el => ({ el, p: el.parentElement, w: 560, y: 0, r: 0 }));
 const posters = $('#posters'), badge = $('#badge'), hero = $('.hero'), phi = $('#phi'), phiFill = $('#phiFill'), tl = $('#tl'), photoImg = $('#photoImg');
 let heroVis = true, phiVis = false, posterVis = true;
-new IntersectionObserver(e => heroVis = e[0].isIntersecting).observe(hero);
-new IntersectionObserver(e => phiVis = e[0].isIntersecting).observe(phi);
+if ('IntersectionObserver' in window) {
+  new IntersectionObserver(e => heroVis = e[0].isIntersecting).observe(hero);
+  new IntersectionObserver(e => phiVis = e[0].isIntersecting).observe(phi);
+} else {
+  heroVis = true; phiVis = true;
+}
 let sv = 0, prevY = scrollY, px = 0, py = 0, badgeA = 0, phX = 0, phY = 0, phR = 0;
 
 function tick(t) {
