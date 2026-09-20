@@ -316,6 +316,8 @@ html.ready .posters{opacity:1;transform:none}
   .about{padding:84px 0}
   .about h2{max-width:12ch;font-size:clamp(2.55rem,11vw,4.2rem)}
   .scrub{font-size:clamp(1.12rem,4.8vw,1.4rem)}
+  .photo-frame[data-r="clip"]{clip-path:inset(0)!important}
+  .photo-frame img{height:100%;opacity:1;visibility:visible;transform:scale(1.02)!important}
   /* Mobile content must never depend on an IntersectionObserver animation. */
   .tl-item{clip-path:none;opacity:1;transform:none}
   .tl-item::before{background:var(--sun);border-color:var(--sun);transform:scale(1.08)}
@@ -686,8 +688,8 @@ footer b{color:var(--fg);font-family:var(--display);font-size:1.1rem}
   html.deck-mode .nav.hide{transform:none}
 }
 @media (max-width:899px),(max-height:719px){
-  html:not(.deck-mode){scroll-snap-type:y proximity}
-  html:not(.deck-mode) main>section{scroll-snap-align:start}
+  html:not(.deck-mode){scroll-snap-type:none}
+  html:not(.deck-mode) main>section{scroll-snap-align:none}
   /* Final mobile fallback: content remains visible without reveal JavaScript. */
   .journey .tl-item{clip-path:none;opacity:1;transform:none}
   .journey .tl-item::before{background:var(--sun);border-color:var(--sun);transform:scale(1.08)}
@@ -985,7 +987,8 @@ const chapters = $$('main>section[data-chapter]');
 const deckUi = $('#deckUi'), deckCurrent = $('#deckCurrent'), deckTotal = $('#deckTotal');
 const deckLabel = $('#deckLabel'), deckDots = $('#deckDots'), deckAnnounce = $('#deckAnnounce');
 const deckPrev = $('#deckPrev'), deckNext = $('#deckNext');
-const deckMQ = matchMedia('(min-width:900px) and (min-height:720px) and (prefers-reduced-motion:no-preference)');
+/* Natural scrolling is used on every screen size; deck controls remain optional shortcuts. */
+const deckMQ = matchMedia('(min-width:99999px)');
 let activeScene = Math.max(0, chapters.findIndex(s => '#' + s.id === location.hash));
 let deckLocked = false, wheelAccum = 0, wheelReset;
 
@@ -1394,7 +1397,8 @@ function tick(t) {
   }
   requestAnimationFrame(tick);
 }
-if (!reduce) requestAnimationFrame(tick);
+/* Pointer-heavy motion is desktop-only so touch scrolling stays lightweight. */
+if (!reduce && fine) requestAnimationFrame(tick);
 else phiFill.style.setProperty('--r', '9999px');
 
 /* ============ SCROLL-BOUND STUFF ============ */
@@ -1407,7 +1411,7 @@ function onScroll() {
 
   /* word scrub */
   const r = scrub.getBoundingClientRect(), vh = innerHeight;
-  if (deckMQ.matches) sw.forEach(w => w.style.removeProperty('opacity'));
+  if (!fine || innerWidth < 900) sw.forEach(w => w.style.opacity = 1);
   else {
     const p = clamp((vh * .88 - r.top) / (vh * .88 - vh * .5 + r.height), 0, 1) * (sw.length + 6);
     sw.forEach((w, i) => w.style.opacity = reduce ? 1 : (.2 + .8 * clamp(p - i, 0, 1)).toFixed(2));
@@ -1418,8 +1422,10 @@ function onScroll() {
   tl.style.setProperty('--p', clamp((vh * .65 - tr.top) / tr.height, 0, 1).toFixed(3));
 
   /* photo parallax */
-  const pr = photoImg.parentElement.getBoundingClientRect();
-  photoImg.style.setProperty('--ty', ((pr.top + pr.height / 2 - vh / 2) * -.07).toFixed(1) + 'px');
+  if (innerWidth >= 900) {
+    const pr = photoImg.parentElement.getBoundingClientRect();
+    photoImg.style.setProperty('--ty', ((pr.top + pr.height / 2 - vh / 2) * -.07).toFixed(1) + 'px');
+  } else photoImg.style.removeProperty('--ty');
 }
 addEventListener('scroll', onScroll, { passive: true }); addEventListener('resize', onScroll); onScroll();
 })();
